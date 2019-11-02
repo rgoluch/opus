@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import FormItem from 'antd/lib/form/FormItem';
-import { Form, Input } from 'antd';
-import { render } from 'react-dom';
+import { Form, Input, Button } from 'antd';
+// import { render } from 'react-dom';
 
 interface IJoinPartyInfoProps {
-
+    onClick?: React.FormEventHandler<any>;
 }
 
 interface IJoinPartyInfoState{
     partyName : String,
-    phoneNumber : String
+    phoneNumber : String,
+    joinSelected : Boolean,
+    hostSelected : Boolean
 }
 
 export default class JoinPartyInfo extends React.Component<IJoinPartyInfoProps,IJoinPartyInfoState>{
     state = {
         partyName : "",
-        phoneNumber : ""
+        phoneNumber : "",
+        joinSelected : false,
+        hostSelected : false
     }
 
     handlePartyNameChange = (event: any) => {
@@ -32,8 +36,18 @@ export default class JoinPartyInfo extends React.Component<IJoinPartyInfoProps,I
         console.log(event)
     }
 
-    render(){
+    handleJoinClick = (e: any) =>{
+        const {joinSelected} = this.state
+        this.setState({
+            joinSelected: !joinSelected
+        })
+        console.log("event")
+    }
+    
+    renderJoinSelected = () =>{
+        console.log("Hello")
         return(
+            <>
             <Form>
                 <FormItem label="Party Name">
                         <Input type="text" value={this.state.partyName} onChange={this.handlePartyNameChange}/>
@@ -42,6 +56,17 @@ export default class JoinPartyInfo extends React.Component<IJoinPartyInfoProps,I
                         <Input type="text" value={this.state.phoneNumber} onChange={this.handlePhoneNumChange}/>
                 </FormItem>
             </Form>
+            </>
+        )
+    }
+
+    render(){
+        const {joinSelected} = this.state;
+        return(
+            <>
+            <Button type="danger" onClick={this.handleJoinClick} >Join Party</Button>
+            {joinSelected?this.renderJoinSelected() : <> </>}
+            </>
         )
     }
 }
