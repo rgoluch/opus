@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import FormItem from 'antd/lib/form/FormItem';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Layout, Row, Col } from 'antd';
+const { Content } = Layout;
+
 // import { render } from 'react-dom';
 
 interface IHostPartyInfoProps {
@@ -25,8 +27,10 @@ export default class HostPartyInfo extends React.Component<IHostPartyInfoProps,I
         spotifyPassWord : ""
     }
 
-    handlePartyNameChange = (event: any) => {this.setState({partyName: event.value})}
+    handlePartyNameChange = (event: any) => {this.setState({partyName: event.target.value})}
     handlePhoneNumChange = (event: any) => {this.setState({phoneNumber: event.target.value})}
+    handleSpotifyUsernameChange = (event: any) => {this.setState({spotifyUserName: event.target.value})}
+    handleSpotifyPasswordChange = (event: any) => {this.setState({spotifyPassWord: event.target.value})}
 
     handleHostClick = (e: any) =>{
         const {hostSelected} = this.state
@@ -39,17 +43,35 @@ export default class HostPartyInfo extends React.Component<IHostPartyInfoProps,I
     renderHostSelected = () =>{
         return(
             <>
-            <Form>
-                <FormItem label="Spotify Log In">
-                        <Input type="text" value={this.state.partyName} onChange={this.handlePartyNameChange}/>
-                </FormItem>
-                <FormItem label="Party Name">
-                        <Input type="text" value={this.state.partyName} onChange={this.handlePartyNameChange}/>
-                </FormItem>
-                <FormItem label="Phone Number">
-                        <Input type="text" value={this.state.phoneNumber} onChange={this.handlePhoneNumChange}/>
-                </FormItem>
-            </Form>
+            <Row>
+                <Col span = {50}>
+                    <Layout>
+                        <Content >
+                            <Form>
+                                <FormItem label="Spotify Log In">
+                                <label>
+                                    User Name
+                                    <Input title="User Name" type="text" value={this.state.spotifyUserName} onChange={this.handleSpotifyUsernameChange}/>
+                                </label>
+                                <label>
+                                    Password
+                                    <Input title="Password" type="password" value={this.state.spotifyPassWord} onChange={this.handleSpotifyPasswordChange}/>
+                                </label>
+                                </FormItem>
+                                <FormItem label="Party Name">
+                                    <Input type="text" value={this.state.partyName} onChange={this.handlePartyNameChange}/>
+                                </FormItem>
+                                <FormItem label="Phone Number">
+                                    <Input type="text" value={this.state.phoneNumber} onChange={this.handlePhoneNumChange}/>
+                                </FormItem>
+                                <Row type="flex" justify="end" align="middle">
+                                    <Button type="primary" shape="round">Start Party!</Button>
+                                </Row>
+                            </Form>
+                        </Content>
+                    </Layout>
+                </Col>
+            </Row>
             </>
         )
     }
@@ -58,7 +80,11 @@ export default class HostPartyInfo extends React.Component<IHostPartyInfoProps,I
         const {hostSelected} = this.state;
         return(
             <>
-            <Button type="primary" onClick={this.handleHostClick}>Host Party</Button>
+            <Row type="flex" justify="center" align="middle">
+                <Col>
+                    <Button type="primary" size="large" onClick={this.handleHostClick}>Host Party</Button>
+                </Col>
+            </Row>
             {hostSelected?this.renderHostSelected() : <> </>}
             </>
         )

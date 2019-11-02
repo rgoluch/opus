@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button } from 'antd';
+import { Row, Col, Layout } from 'antd';
 import JoinPartyInfo from './joinpartyinfo.component';
 import HostPartyInfo from './hostpartyinfo.components';
-
+const { Content } = Layout;
 export default class HomePage extends React.Component{
     
     state = {
@@ -26,13 +26,17 @@ export default class HomePage extends React.Component{
     render(){
         return(
             <div>
-                {/* <Button type="primary" onClick={this.handleHostClick}>Host Party</Button> */}
-                <HostPartyInfo />
+                <Row type="flex" justify="center" align="middle">
+                    <Col>
+                        <HostPartyInfo />
+                    </Col>
+                </Row>
                 <br />
-                <br />
-                <JoinPartyInfo />
-                {/* <Button type="danger" onClick={this.handleJoinClick}>Join Party</Button> */}
-                {/* <JoinPartyInfo buttonClick={this.state.joinSelected} /> */}
+                <Row type="flex" justify="center" align="top">
+                    <Col >
+                        <JoinPartyInfo />
+                    </Col>
+                </Row>
             </div>
         )
     }
