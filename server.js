@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //Mongo URI
-mongodb+srv://opus:<password>@cluster0-hhj2f.gcp.mongodb.net/test?retryWrites=true&w=majority
+//mongodb+srv://opus:<password>@cluster0-hhj2f.gcp.mongodb.net/test?retryWrites=true&w=majority
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
